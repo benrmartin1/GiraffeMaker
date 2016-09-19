@@ -53,10 +53,12 @@ public class GiraffeMaker : MonoBehaviour {
         // Make the empty parent object
         GameObject giraffeGameObject = new GameObject();
         giraffe = giraffeGameObject.transform;
+        giraffe.tag = "Giraffe";
 
         // Name it
         giraffe.name = GetComponent<RandomNamer>().RandomName();
         nameText.text = giraffe.name;
+
         Random.InitState(giraffe.name.GetHashCode());
 
         // Make it
@@ -65,6 +67,9 @@ public class GiraffeMaker : MonoBehaviour {
         GenerateNeck();
         GenerateHead();
         GenerateTail();
+
+        // Move it so it starts at 0 on the y axis
+        giraffe.Translate(0, (legBR.localScale.y + body.localScale.y / 2.0f), 0);
 
         color = new Color(Random.value, Random.value, Random.value, 1.0f);
         foreach (Renderer r in giraffe.GetComponentsInChildren<Renderer>())
@@ -212,7 +217,7 @@ public class GiraffeMaker : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-        if(Input.anyKeyDown)
+        if(Input.GetKeyDown(KeyCode.Space))
         {
             Destroy(giraffe.gameObject);
             GenerateGiraffe();
