@@ -3,13 +3,10 @@ using System.Collections;
 
 public class CameraController : MonoBehaviour {
 
-    public Transform target;
-
     private Camera theCamera;
 
     public enum CameraMode {FLAT, THREE_D, ROTATE_LEFT, ROTATE_RIGHT, ANGLE, ANGLE_ROTATE};
     private CameraMode currentCameraMode = CameraMode.FLAT;
-    private Vector3 initialCameraPosition;
 
     private Vector3 flatCameraPosition = new Vector3(0, 4, -12);
     private Vector3 flatCameraRotation = new Vector3(0, 0, 0);
@@ -20,7 +17,7 @@ public class CameraController : MonoBehaviour {
 
     private Coroutine currentCoroutine;
 
-    private float rotateSpeed = 20;
+    private float rotateSpeed = 25;
 
     void Awake()
     {
@@ -103,12 +100,12 @@ public class CameraController : MonoBehaviour {
 
     IEnumerator MoveCamera(Vector3 position, Vector3 rotation , CameraMode newCameraMode)
     {
-
-        for(float i = 0; i < 1; i+= Time.deltaTime / 0.5f)
+        Vector3 startPosition = theCamera.transform.position;
+        Quaternion startRotation = theCamera.transform.rotation;
+        for(float i = 0f; i < 1; i+= Time.deltaTime / 0.5f)
         {
-            print(i);
-            theCamera.transform.position = Vector3.Lerp(theCamera.transform.position, position, i);
-            theCamera.transform.rotation = Quaternion.Lerp( theCamera.transform.rotation, Quaternion.Euler(rotation), i);
+            theCamera.transform.position = Vector3.Lerp(startPosition, position, i);
+            theCamera.transform.rotation = Quaternion.Slerp(startRotation, Quaternion.Euler(rotation), i);
             yield return null;
         }
         currentCameraMode = newCameraMode;
