@@ -3,6 +3,7 @@ using System.Collections;
 
 public class CameraController : MonoBehaviour {
 
+
     private Camera theCamera;
 
     public enum CameraMode {FLAT, THREE_D, ROTATE_LEFT, ROTATE_RIGHT, ANGLE, ANGLE_ROTATE};
@@ -27,75 +28,56 @@ public class CameraController : MonoBehaviour {
 
     public void SetCameraModeFlat()
     {
-        //currentCameraMode = CameraMode.FLAT;
         theCamera.orthographic = true;
+        SetSolidBackground();
 
         StopCoroutine(currentCoroutine);
         currentCoroutine = StartCoroutine(MoveCamera(flatCameraPosition, flatCameraRotation, CameraMode.FLAT));
-
-        //theCamera.transform.position = flatCameraPosition;
-        //theCamera.transform.rotation = Quaternion.Euler(flatCameraRotation);
     }
 
     public void SetCameraMode3D()
     {
-        //currentCameraMode = CameraMode.THREE_D;
         theCamera.orthographic = false;
+        SetSkyboxDefault();
 
         StopCoroutine(currentCoroutine);
         currentCoroutine = StartCoroutine(MoveCamera(threeDCameraPosition, threeDCameraRotation, CameraMode.THREE_D));
-
-        //theCamera.transform.position = threeDCameraPosition;
-        //theCamera.transform.rotation = Quaternion.Euler(threeDCameraRotation);
     }
 
     public void SetCameraModeRotateLeft()
     {
-        //currentCameraMode = CameraMode.ROTATE_LEFT;
         theCamera.orthographic = false;
+        SetSkyboxDefault();
 
         StopCoroutine(currentCoroutine);
         currentCoroutine = StartCoroutine(MoveCamera(threeDCameraPosition, threeDCameraRotation, CameraMode.ROTATE_LEFT));
-        //theCamera.transform.position = threeDCameraPosition;
-        //theCamera.transform.rotation = Quaternion.Euler(threeDCameraRotation);
-        print("DONE");
     }
 
     public void SetCameraModeRotateRight()
     {
-        //currentCameraMode = CameraMode.ROTATE_RIGHT;
         theCamera.orthographic = false;
+        SetSkyboxDefault();
 
         StopCoroutine(currentCoroutine);
         currentCoroutine = StartCoroutine(MoveCamera(threeDCameraPosition, threeDCameraRotation, CameraMode.ROTATE_RIGHT));
-
-        //theCamera.transform.position = threeDCameraPosition;
-        //theCamera.transform.rotation = Quaternion.Euler(threeDCameraRotation);
     }
 
     public void SetCameraModeAngle()
     {
-
-        //currentCameraMode = CameraMode.ANGLE;
         theCamera.orthographic = false;
+        SetSkyboxDefault();
 
         StopCoroutine(currentCoroutine);
         currentCoroutine = StartCoroutine(MoveCamera(angleCameraPosition, angleCameraRotation, CameraMode.ANGLE));
-
-        //theCamera.transform.position = angleCameraPosition;
-        //theCamera.transform.rotation = Quaternion.Euler(angleCameraRotation);
     }
 
     public void SetCameraModeAngleRotate()
     {
-
-        //currentCameraMode = CameraMode.ANGLE_ROTATE;
         theCamera.orthographic = false;
+        SetSkyboxDefault();
+
         StopCoroutine(currentCoroutine);
         currentCoroutine = StartCoroutine(MoveCamera(angleCameraPosition, angleCameraRotation, CameraMode.ANGLE_ROTATE));
-
-        //theCamera.transform.position = angleCameraPosition;
-        //theCamera.transform.rotation = Quaternion.Euler(angleCameraRotation);
     }
 
     IEnumerator MoveCamera(Vector3 position, Vector3 rotation , CameraMode newCameraMode)
@@ -112,32 +94,25 @@ public class CameraController : MonoBehaviour {
 
     }
 
+    public void SetSolidBackground()
+    {
+        theCamera.clearFlags = CameraClearFlags.SolidColor;
+        //theCamera.backgroundColor = color;
+    }
+
+    public void SetSkyboxDefault()
+    {
+        theCamera.clearFlags = CameraClearFlags.Skybox;
+    }
+
+    public void SetSkyboxOther()
+    {
+
+    }
+
     // Update is called once per frame
     void Update () {
-        if(Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            SetCameraModeFlat();
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            SetCameraMode3D();
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            SetCameraModeRotateLeft();
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha4))
-        {
-            SetCameraModeRotateRight();
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha5))
-        {
-            SetCameraModeAngle();
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha6))
-        {
-            SetCameraModeAngleRotate();
-        }
+        
         
         if(Input.GetKey(KeyCode.Minus))
         {
