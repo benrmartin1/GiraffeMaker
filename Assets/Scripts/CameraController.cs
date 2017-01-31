@@ -1,8 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class CameraController : MonoBehaviour {
 
+    public List<Material> skyboxMats;
+    private int currentSkybox = 0;
 
     private Camera theCamera;
 
@@ -38,7 +41,7 @@ public class CameraController : MonoBehaviour {
     public void SetCameraMode3D()
     {
         theCamera.orthographic = false;
-        SetSkyboxDefault();
+        SetSkybox();
 
         StopCoroutine(currentCoroutine);
         currentCoroutine = StartCoroutine(MoveCamera(threeDCameraPosition, threeDCameraRotation, CameraMode.THREE_D));
@@ -47,7 +50,7 @@ public class CameraController : MonoBehaviour {
     public void SetCameraModeRotateLeft()
     {
         theCamera.orthographic = false;
-        SetSkyboxDefault();
+        SetSkybox();
 
         StopCoroutine(currentCoroutine);
         currentCoroutine = StartCoroutine(MoveCamera(threeDCameraPosition, threeDCameraRotation, CameraMode.ROTATE_LEFT));
@@ -56,7 +59,7 @@ public class CameraController : MonoBehaviour {
     public void SetCameraModeRotateRight()
     {
         theCamera.orthographic = false;
-        SetSkyboxDefault();
+        SetSkybox();
 
         StopCoroutine(currentCoroutine);
         currentCoroutine = StartCoroutine(MoveCamera(threeDCameraPosition, threeDCameraRotation, CameraMode.ROTATE_RIGHT));
@@ -65,7 +68,7 @@ public class CameraController : MonoBehaviour {
     public void SetCameraModeAngle()
     {
         theCamera.orthographic = false;
-        SetSkyboxDefault();
+        SetSkybox();
 
         StopCoroutine(currentCoroutine);
         currentCoroutine = StartCoroutine(MoveCamera(angleCameraPosition, angleCameraRotation, CameraMode.ANGLE));
@@ -74,7 +77,7 @@ public class CameraController : MonoBehaviour {
     public void SetCameraModeAngleRotate()
     {
         theCamera.orthographic = false;
-        SetSkyboxDefault();
+        SetSkybox();
 
         StopCoroutine(currentCoroutine);
         currentCoroutine = StartCoroutine(MoveCamera(angleCameraPosition, angleCameraRotation, CameraMode.ANGLE_ROTATE));
@@ -100,14 +103,28 @@ public class CameraController : MonoBehaviour {
         //theCamera.backgroundColor = color;
     }
 
-    public void SetSkyboxDefault()
+    public void SetSkybox()
     {
-        theCamera.clearFlags = CameraClearFlags.Skybox;
+        if (theCamera.clearFlags != CameraClearFlags.Skybox)
+        {
+            theCamera.clearFlags = CameraClearFlags.Skybox;
+            RenderSettings.skybox = skyboxMats[currentSkybox];
+        }
     }
 
-    public void SetSkyboxOther()
+    public void CycleSkybox(bool backward)
     {
+        if(theCamera.clearFlags == CameraClearFlags.Skybox)
+        {
+            currentSkybox += backward ? -1 : 1;
+            currentSkybox = mod(currentSkybox, skyboxMats.Count);
+            RenderSettings.skybox = skyboxMats[currentSkybox];
+        }
+    }
 
+    int mod(int x, int m)
+    {
+        return (x % m + m) % m;
     }
 
     // Update is called once per frame

@@ -33,22 +33,7 @@ public class GiraffeMaker : MonoBehaviour {
 
     public Text nameText;
 
-
-    // Use this for initialization
-    void Start () {
-        //GenerateGiraffe();
-        //giraffe.Translate(Vector3.left * 4 + Vector3.up * 4);
-        //GenerateGiraffe();
-        //giraffe.Translate(Vector3.right * 4 + Vector3.up * 4);
-        //GenerateGiraffe();
-        //giraffe.Translate(Vector3.left * 4 + Vector3.down * 2);
-        //GenerateGiraffe();
-        //giraffe.Translate(Vector3.right * 4 + Vector3.down * 2);
-        GenerateGiraffe();
-
-    }
-
-    void GenerateGiraffe()
+    public Transform GenerateGiraffe()
     {
         // Make the empty parent object
         GameObject giraffeGameObject = new GameObject();
@@ -76,6 +61,13 @@ public class GiraffeMaker : MonoBehaviour {
         {
             r.material.color = color;
         }
+
+        //Animator a = giraffeGameObject.AddComponent<Animator>();
+        //a.runtimeAnimatorController = Resources.Load("Animation/Giraffe") as RuntimeAnimatorController;
+        //giraffeGameObject.AddComponent<GiraffeController>();
+        //giraffeGameObject.AddComponent<CharacterController>();
+        Object.DontDestroyOnLoad(giraffeGameObject);
+        return giraffeGameObject.transform;
     }
 
     void GenerateBody()
@@ -167,7 +159,7 @@ public class GiraffeMaker : MonoBehaviour {
         neck.localPosition = new Vector3(0, neckScale.y / 2.0f - neckScale.x / 2.0f, 0);
 
 
-        neckPivot.rotation = Quaternion.Euler(new Vector3(0, 0, Random.Range(-5, 25)));
+        //neckPivot.rotation = Quaternion.Euler(new Vector3(0, 0, Random.Range(-5, 25)));
     }
 
     void GenerateHead()
@@ -214,13 +206,4 @@ public class GiraffeMaker : MonoBehaviour {
         tailPivot.rotation = Quaternion.Euler(new Vector3(0, 0, Random.Range(5, 45)));
 
     }
-
-    // Update is called once per frame
-    void Update () {
-        if(Input.GetKeyDown(KeyCode.Space))
-        {
-            Destroy(giraffe.gameObject);
-            GenerateGiraffe();
-        }
-	}
 }
