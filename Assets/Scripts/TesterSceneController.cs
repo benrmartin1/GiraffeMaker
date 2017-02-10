@@ -7,7 +7,13 @@ public class TesterSceneController : MonoBehaviour {
     public Transform locationSpawn;
 
 	// Use this for initialization
-	void Start () {
+	void Start ()
+    {
+        SetupMainGiraffe();
+    }
+
+    void SetupMainGiraffe()
+    {
         giraffeObject = GameObject.FindWithTag("Giraffe").transform;
         giraffeObject.position = locationSpawn.position;
 
@@ -19,9 +25,4 @@ public class TesterSceneController : MonoBehaviour {
         Animator a = giraffeObject.gameObject.AddComponent<Animator>();
         a.runtimeAnimatorController = Resources.Load("Animation/Giraffe") as RuntimeAnimatorController;
     }
-
-    // Update is called once per frame
-    void Update () {
-	
-	}
 }

@@ -1,13 +1,17 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameController : MonoBehaviour {
 
     public GameObject platform;
+    public Transform startingText; 
 
     private CameraController camController;
     private Transform giraffe;
+    private bool firstGenerate = true;
+
 
     public void SetGiraffe(Transform newGiraffe)
     {
@@ -65,7 +69,14 @@ public class GameController : MonoBehaviour {
             {
                 Destroy(giraffe.gameObject);
             }
+            if (firstGenerate)
+            {
+                firstGenerate = false;
+                StartCoroutine(startingText.GetComponent<StartingTextController>().Shrink());
+            }
+
             giraffe = GetComponent<GiraffeMaker>().GenerateGiraffe();
+
         }
         else if(Input.GetKeyDown(KeyCode.Return))
         {

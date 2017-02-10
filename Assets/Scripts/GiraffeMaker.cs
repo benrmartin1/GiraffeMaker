@@ -32,6 +32,7 @@ public class GiraffeMaker : MonoBehaviour {
     Color color;
 
     public Text nameText;
+    public Transform targetLocation;
 
     public Transform GenerateGiraffe()
     {
@@ -53,8 +54,8 @@ public class GiraffeMaker : MonoBehaviour {
         GenerateHead();
         GenerateTail();
 
-        // Move it so it starts at 0 on the y axis
-        giraffe.Translate(0, (legBR.localScale.y + body.localScale.y / 2.0f), 0);
+        // Move it so it starts at target transform on the y axis
+        giraffe.Translate(targetLocation.position.x, (legBR.localScale.y + body.localScale.y / 2.0f) + targetLocation.position.y, 0);
 
         color = new Color(Random.value, Random.value, Random.value, 1.0f);
         foreach (Renderer r in giraffe.GetComponentsInChildren<Renderer>())
@@ -62,10 +63,6 @@ public class GiraffeMaker : MonoBehaviour {
             r.material.color = color;
         }
 
-        //Animator a = giraffeGameObject.AddComponent<Animator>();
-        //a.runtimeAnimatorController = Resources.Load("Animation/Giraffe") as RuntimeAnimatorController;
-        //giraffeGameObject.AddComponent<GiraffeController>();
-        //giraffeGameObject.AddComponent<CharacterController>();
         Object.DontDestroyOnLoad(giraffeGameObject);
         return giraffeGameObject.transform;
     }

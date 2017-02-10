@@ -13,7 +13,6 @@ public class GiraffeController : MonoBehaviour {
         rb = GetComponent<Rigidbody>();
         charController = GetComponent<CharacterController>();
 
-
     }
 
     public float x;
