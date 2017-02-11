@@ -6,7 +6,8 @@ using UnityEngine.UI;
 public class GameController : MonoBehaviour {
 
     public GameObject platform;
-    public Transform startingText; 
+    public Transform startingText;
+    public SignController signController;
 
     private CameraController camController;
     private Transform giraffe;
@@ -69,13 +70,20 @@ public class GameController : MonoBehaviour {
             {
                 Destroy(giraffe.gameObject);
             }
+
+            giraffe = GetComponent<GiraffeMaker>().GenerateGiraffe();
+
             if (firstGenerate)
             {
                 firstGenerate = false;
                 StartCoroutine(startingText.GetComponent<StartingTextController>().Shrink());
+                signController.DropSign();
+            }
+            else
+            {
+                signController.ChangeSign();
             }
 
-            giraffe = GetComponent<GiraffeMaker>().GenerateGiraffe();
 
         }
         else if(Input.GetKeyDown(KeyCode.Return))

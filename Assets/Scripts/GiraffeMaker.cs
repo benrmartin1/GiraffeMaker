@@ -31,8 +31,9 @@ public class GiraffeMaker : MonoBehaviour {
 
     Color color;
 
-    public Text nameText;
     public Transform targetLocation;
+
+    public static string curentGiraffeName;
 
     public Transform GenerateGiraffe()
     {
@@ -43,7 +44,7 @@ public class GiraffeMaker : MonoBehaviour {
 
         // Name it
         giraffe.name = GetComponent<RandomNamer>().RandomName();
-        nameText.text = giraffe.name;
+        curentGiraffeName = giraffe.name;
 
         Random.InitState(giraffe.name.GetHashCode());
 
