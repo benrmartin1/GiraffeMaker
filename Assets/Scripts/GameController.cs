@@ -89,7 +89,7 @@ public class GameController : MonoBehaviour {
         else if(Input.GetKeyDown(KeyCode.Return))
         {
             // Giraffe selected. Load test scene
-            SceneManager.LoadScene("tester");
+            SceneManager.LoadScene("Playground");
         }
     }
 }

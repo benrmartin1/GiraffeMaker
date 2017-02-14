@@ -38,18 +38,18 @@ public class GiraffeController : MonoBehaviour {
         //    animator.SetBool("Walking", false);
         //}
 
-        float speed = 50.0F;
+        float speed = 20.0F;
         float jumpSpeed = 40.0F;
         float maxJumpTime = 0.5f;
-        float minJumpTime = 0.15f;
+        float minJumpTime = 0.1f;
 
         float rotateSpeed = 3.0f;
-        float gravity = 1500.0f;
+        float gravity = 1000.0f;
 
         transform.Rotate(0, Input.GetAxis("Horizontal") * rotateSpeed, 0);
 
 
-        Vector3 forward = transform.TransformDirection(-Vector3.right);
+        Vector3 forward = transform.TransformDirection(Vector3.forward);
         float curSpeed = speed * Input.GetAxis("Vertical");
         Vector3 moveDirection = forward * curSpeed;
         //moveDirection = transform.TransformDirection(moveDirection);
@@ -85,7 +85,8 @@ public class GiraffeController : MonoBehaviour {
 
         if(goingUp)
         {
-            moveDirection.y = jumpSpeed;
+            //print((((1 - jumpTime / maxJumpTime) / 2.0f) + 0.5f));
+            moveDirection.y = jumpSpeed * (((1 - jumpTime/maxJumpTime)/2.0f)+0.5f);
         }
 
         moveDirection.y -= gravity * Time.deltaTime;
