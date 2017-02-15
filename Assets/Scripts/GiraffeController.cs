@@ -52,7 +52,6 @@ public class GiraffeController : MonoBehaviour {
         Vector3 forward = transform.TransformDirection(Vector3.forward);
         float curSpeed = speed * Input.GetAxis("Vertical");
         Vector3 moveDirection = forward * curSpeed;
-        //moveDirection = transform.TransformDirection(moveDirection);
 
         if (Input.GetButton("Jump"))
         {

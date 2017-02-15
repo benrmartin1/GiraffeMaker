@@ -59,13 +59,17 @@ public class GiraffeMaker : MonoBehaviour {
         giraffe.Rotate(0, 90, 0);
 
         // Move it so it starts at target transform on the y axis
-        giraffe.Translate(targetLocation.position.x, (legBR.localScale.y + body.localScale.y / 2.0f) + targetLocation.position.y, 0);
+        giraffe.Translate(targetLocation.position.x, (legBR.localScale.y + body.localScale.y / 2.0f) + targetLocation.position.y + targetLocation.localScale.y, 0);
 
         color = new Color(Random.value, Random.value, Random.value, 1.0f);
         foreach (Renderer r in giraffe.GetComponentsInChildren<Renderer>())
         {
             r.material.color = color;
         }
+
+        GiraffeInfo gi = giraffeGameObject.AddComponent<GiraffeInfo>();
+        gi.SetHeight((body.localScale.y/2.0f + legBL.localScale.y) * 2.0f);
+        gi.SetWidth(body.localScale.x / 2.0f);
 
         Object.DontDestroyOnLoad(giraffeGameObject);
         return giraffeGameObject.transform;

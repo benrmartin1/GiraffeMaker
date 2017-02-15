@@ -31,8 +31,8 @@ public class TesterSceneController : MonoBehaviour {
 
         giraffeObject.gameObject.AddComponent<GiraffeController>();
         CharacterController charController = giraffeObject.gameObject.AddComponent<CharacterController>();
-        charController.height = 5.97f;
-        charController.radius = 1.19f;
+        charController.height = giraffeObject.GetComponent<GiraffeInfo>().GetHeight();
+        charController.radius = giraffeObject.GetComponent<GiraffeInfo>().GetWidth();
 
         // Add an animator if the giraffe doesn't have one already
         Animator a = giraffeObject.GetComponent<Animator>();
