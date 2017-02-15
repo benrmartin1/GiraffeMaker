@@ -15,10 +15,6 @@ public class GiraffeController : MonoBehaviour {
 
     }
 
-    public float x;
-    public float y;
-    public float z;
-
     float jumpTime = 0;
     bool goingUp = false;
     void Update () {

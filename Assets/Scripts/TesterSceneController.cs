@@ -30,16 +30,23 @@ public class TesterSceneController : MonoBehaviour {
         giraffeObject.rotation = Quaternion.identity;
 
         giraffeObject.gameObject.AddComponent<GiraffeController>();
-        CharacterController charController = giraffeObject.gameObject.AddComponent<CharacterController>();
-        charController.height = giraffeObject.GetComponent<GiraffeInfo>().GetHeight();
-        charController.radius = giraffeObject.GetComponent<GiraffeInfo>().GetWidth();
 
-        // Add an animator if the giraffe doesn't have one already
-        Animator a = giraffeObject.GetComponent<Animator>();
-        if(!a)
+
+        // Add a character controller and animator if the giraffe doesn't have one already.
+        // The default giraffe has them, so this prevents them being added twice
+        CharacterController charController = giraffeObject.gameObject.GetComponent<CharacterController>();
+        if(!charController)
         {
-            a = giraffeObject.gameObject.AddComponent<Animator>();
+            charController = giraffeObject.gameObject.AddComponent<CharacterController>();
+            charController.height = giraffeObject.GetComponent<GiraffeInfo>().GetHeight();
+            charController.radius = giraffeObject.GetComponent<GiraffeInfo>().GetWidth();
         }
-        a.runtimeAnimatorController = Resources.Load("Animation/Giraffe") as RuntimeAnimatorController;
+
+        Animator anim = giraffeObject.GetComponent<Animator>();
+        if(!anim)
+        {
+            anim = giraffeObject.gameObject.AddComponent<Animator>();
+        }
+        anim.runtimeAnimatorController = Resources.Load("Animation/Giraffe") as RuntimeAnimatorController;
     }
 }
