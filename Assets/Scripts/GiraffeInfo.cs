@@ -2,6 +2,7 @@
 using System.Collections;
 using System;
 
+// Basic info about giraffe
 public class GiraffeInfo : MonoBehaviour
 {
     private float height;

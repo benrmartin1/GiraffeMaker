@@ -47,6 +47,6 @@ public class TesterSceneController : MonoBehaviour {
         {
             anim = giraffeObject.gameObject.AddComponent<Animator>();
         }
-        anim.runtimeAnimatorController = Resources.Load("Animation/Giraffe") as RuntimeAnimatorController;
+        anim.runtimeAnimatorController = Resources.Load("GiraffeAnimation/Giraffe") as RuntimeAnimatorController;
     }
 }

@@ -2,7 +2,8 @@
 using System.Collections;
 using UnityEngine.UI;
 
-public class GiraffeMaker : MonoBehaviour {
+public class GiraffeMaker : MonoBehaviour
+{
 
     Transform giraffe;
 
@@ -43,10 +44,12 @@ public class GiraffeMaker : MonoBehaviour {
         giraffe.tag = "Player";
 
         // Name it
-        giraffe.name = GetComponent<RandomNamer>().RandomName();
+        giraffe.name = RandomNamer.RandomName();
         curentGiraffeName = giraffe.name;
 
-        Random.InitState(giraffe.name.GetHashCode());
+        // Base the random seed off the name, so the same name giraffe always looks the same
+        // Plus 7 for a secret shift so good names get good looks :)
+        Random.InitState(giraffe.name.GetHashCode() + 7);
 
         // Make it
         GenerateBody();
@@ -68,7 +71,7 @@ public class GiraffeMaker : MonoBehaviour {
         }
 
         GiraffeInfo gi = giraffeGameObject.AddComponent<GiraffeInfo>();
-        gi.SetHeight((body.localScale.y/2.0f + legBL.localScale.y) * 2.0f);
+        gi.SetHeight((body.localScale.y / 2.0f + legBL.localScale.y) * 2.0f);
         gi.SetWidth(body.localScale.x / 2.0f);
 
         Object.DontDestroyOnLoad(giraffeGameObject);
@@ -99,12 +102,12 @@ public class GiraffeMaker : MonoBehaviour {
         legPivotFL = new GameObject().transform;
         legPivotFL.name = "LegPivotFL";
         legPivotFL.parent = giraffe;
-        legPivotFL.localPosition = new Vector3(-body.localScale.x/2.0f, -body.localScale.y / 2.0f, body.localScale.z / 2.0f);
+        legPivotFL.localPosition = new Vector3(-body.localScale.x / 2.0f, -body.localScale.y / 2.0f, body.localScale.z / 2.0f);
         legFL = GameObject.CreatePrimitive(PrimitiveType.Cube).transform;
         legFL.name = "LegFL";
         legFL.parent = legPivotFL;
         legFL.localScale = legScale;
-        legFL.localPosition = new Vector3(legScale.x/2.0f, -legScale.y / 2.0f, -legScale.z / 2.0f);
+        legFL.localPosition = new Vector3(legScale.x / 2.0f, -legScale.y / 2.0f, -legScale.z / 2.0f);
 
 
         // Front right leg
@@ -142,7 +145,6 @@ public class GiraffeMaker : MonoBehaviour {
         legBR.localScale = legScale;
         legBR.localPosition = new Vector3(-legScale.x / 2.0f, -legScale.y / 2.0f, legScale.z / 2.0f);
 
-
     }
 
     void GenerateNeck()
@@ -155,7 +157,7 @@ public class GiraffeMaker : MonoBehaviour {
         neckPivot = new GameObject().transform;
         neckPivot.name = "NeckPivot";
         neckPivot.parent = giraffe;
-        neckPivot.localPosition = new Vector3(0, body.localScale.y/2 - neckScale.z/2.0f, body.localScale.z / 2.0f - neckScale.z / 2.0f);
+        neckPivot.localPosition = new Vector3(0, body.localScale.y / 2 - neckScale.z / 2.0f, body.localScale.z / 2.0f - neckScale.z / 2.0f);
 
         neck = GameObject.CreatePrimitive(PrimitiveType.Cube).transform;
         neck.name = "Neck";
@@ -163,8 +165,7 @@ public class GiraffeMaker : MonoBehaviour {
         neck.localScale = neckScale;
         neck.localPosition = new Vector3(0, neckScale.y / 2.0f - neckScale.z / 2.0f, 0);
 
-
-        //neckPivot.rotation = Quaternion.Euler(new Vector3(0, 0, Random.Range(-5, 25)));
+        neckPivot.rotation = Quaternion.Euler(new Vector3(Random.Range(-2, 10), 0, 0));
     }
 
     void GenerateHead()
@@ -188,7 +189,6 @@ public class GiraffeMaker : MonoBehaviour {
         head.localScale = headScale;
         head.localPosition = new Vector3(0, neck.localScale.z / 2.0f, headScale.z / 2.0f - neck.localScale.z / 2.0f);
 
-
     }
 
     void GenerateTail()
@@ -208,7 +208,7 @@ public class GiraffeMaker : MonoBehaviour {
         tail.localScale = tailScale;
         tail.localPosition = new Vector3(0, -tailScale.y / 2.0f, tailScale.z / 2.0f);
 
-        tailPivot.rotation = Quaternion.Euler(new Vector3(Random.Range(5, 45), 0, 0 ));
+        tailPivot.rotation = Quaternion.Euler(new Vector3(Random.Range(5, 45), 0, 0));
 
     }
 }
