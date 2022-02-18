@@ -6,12 +6,28 @@ public class TesterSceneController : MonoBehaviour {
     Transform giraffeObject;
     public Transform locationSpawn;
     public Transform defaultGiraffe;
-
+    public AudioSource music;
 
 	// Use this for initialization
 	void Awake ()
     {
         SetupMainGiraffe();
+    }
+
+    void Update ()
+    {
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            // Mute/unmute
+            if (music.isPlaying)
+            {
+                music.Stop();
+            }
+            else
+            {
+                music.Play();
+            }
+        }
     }
 
     void SetupMainGiraffe()

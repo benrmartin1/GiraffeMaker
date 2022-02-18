@@ -9,6 +9,7 @@ public class GameController : MonoBehaviour
     public Transform startingText;
     public SignController signController;
     public GameObject particles;
+    public AudioSource music;
 
     private CameraController camController;
     private Transform giraffe;
@@ -80,6 +81,18 @@ public class GameController : MonoBehaviour
         {
             // Giraffe selected. Load test scene with giraffe
             SceneManager.LoadScene("Playground");
+        }
+        else if (Input.GetKeyDown(KeyCode.M))
+        {
+            // Mute/unmute
+            if (music.isPlaying)
+            {
+                music.Stop();
+            }
+            else
+            {
+                music.Play();
+            }
         }
         else if (Input.GetKey(KeyCode.F3) && Input.GetKey(KeyCode.F5) && !swappedNames)
         {

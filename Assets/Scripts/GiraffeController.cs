@@ -6,10 +6,9 @@ using UnityEngine.UI;
 public class GiraffeController : MonoBehaviour
 {
 
-    public Text scoreText;
-    public Text infoText;
-    public GameObject ammo;
-    public MeshRenderer[] meshes;
+    Text scoreText;
+    Text infoText;
+    GameObject ammo;
 
     Animator animator;
     CharacterController charController;
@@ -61,7 +60,7 @@ public class GiraffeController : MonoBehaviour
         // Super simple stupid algo to jump
         // Allows short jumps by tapping jump or long jumps by holding jump, up until maxJumpTime
         // This block calculates whether we are "goingUp" based on how long jump input has been held
-        if (Input.GetButton("Jump") && jumpEnabled  )
+        if (Input.GetButton("Jump") && jumpEnabled)
         {
             if (charController.isGrounded && Input.GetButtonDown("Jump"))
             {
@@ -107,10 +106,13 @@ public class GiraffeController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.F) && shootEnabled)
         {
+            // Put the spawned ammo in front of player slightly above (approx. head height)
             Vector3 ammoPos = transform.forward * 3 + transform.position;
-            ammoPos.y += 3;
+            ammoPos.y += 2.5f;
             GameObject newAmmo = Instantiate(ammo, ammoPos, transform.rotation);
             newAmmo.GetComponent<Rigidbody>().velocity = transform.forward * ammoSpeed;
+            // Play sound effect
+            newAmmo.GetComponent<AudioSource>().Play();
         }
             
     }
