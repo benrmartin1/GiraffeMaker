@@ -66,12 +66,12 @@ public class GameController : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
             // Go to next skybox
-            camController.CycleSkybox();
+            camController.CycleSkybox(true);
         }
         else if (Input.GetKeyDown(KeyCode.RightArrow))
         {
             // Go to previous skybox
-            camController.CycleSkybox(false);
+            camController.CycleSkybox();
         }
         else if (Input.GetKeyDown(KeyCode.Space))
         {

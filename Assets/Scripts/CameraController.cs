@@ -129,7 +129,9 @@ public class CameraController : MonoBehaviour
         if (theCamera.clearFlags == CameraClearFlags.Skybox)
         {
             currentSkybox += backward ? -1 : 1;
-            currentSkybox = currentSkybox % skyboxMats.Count;
+            // Make sure we stay in range, and not negative
+            currentSkybox = (currentSkybox % skyboxMats.Count + skyboxMats.Count) % skyboxMats.Count; 
+            print(currentSkybox);
             RenderSettings.skybox = skyboxMats[currentSkybox];
         }
     }
