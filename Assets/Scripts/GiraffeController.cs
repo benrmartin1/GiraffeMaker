@@ -5,27 +5,35 @@ using UnityEngine.UI;
 // Responsible for allowing player control of giraffe, including jumps and movement
 public class GiraffeController : MonoBehaviour
 {
+
     public Text scoreText;
     public Text infoText;
+    public GameObject ammo;
+    public MeshRenderer[] meshes;
 
     Animator animator;
     CharacterController charController;
 
     int score = 0;
     const int unlockJumpScore = 10;
+    const int unlockShootScore = 20;
 
     // Control related vars
     float jumpTime = 0;
     bool goingUp = false;
-    bool jumpEnabled = false;
 
-    const float speed = 70.0F; //20
+    const float speed = 20.0F; //20
+    const int ammoSpeed = 40;
+
     const float jumpSpeed = 60.0F;
     const float maxJumpTime = 0.5f;
     const float minJumpTime = 0.1f;
 
     const float rotateSpeed = 3.0f;
     const float gravity = 1200.0f;
+
+    bool jumpEnabled = false;
+    bool shootEnabled = false;
 
     // Use this for initialization
     void Start()
@@ -38,6 +46,7 @@ public class GiraffeController : MonoBehaviour
     {
         scoreText = GameObject.Find("FoodText").GetComponent<Text>();
         infoText = GameObject.Find("InfoText").GetComponent<Text>();
+        ammo = Resources.Load("Prefabs/Ammo") as GameObject;
     }
 
     void Update()
@@ -95,6 +104,15 @@ public class GiraffeController : MonoBehaviour
 
         // Animate the player while it is moving in any direction
         animator.SetBool("Walking", charController.velocity.magnitude > 0);
+
+        if (Input.GetKeyDown(KeyCode.F) && shootEnabled)
+        {
+            Vector3 ammoPos = transform.forward * 3 + transform.position;
+            ammoPos.y += 3;
+            GameObject newAmmo = Instantiate(ammo, ammoPos, transform.rotation);
+            newAmmo.GetComponent<Rigidbody>().velocity = transform.forward * ammoSpeed;
+        }
+            
     }
 
     public void IncrementScore()
@@ -102,10 +120,15 @@ public class GiraffeController : MonoBehaviour
         score++;
         scoreText.text = "Foods: " + score;
 
-        if (score >= unlockJumpScore)
+        if (score >= unlockJumpScore && score < unlockShootScore)
         {
-            infoText.text = "";
+            infoText.text = "[Space] to jump. Eat 20 foods to be strong enough to shoot!";
             jumpEnabled = true;
+        }
+        else if (score >= unlockShootScore)
+        {
+            infoText.text = "[Space] to jump. [F] to shoot. You got all the food! Giraffes shouldn't eat too much!";
+            shootEnabled = true;
         }
     }
 }
