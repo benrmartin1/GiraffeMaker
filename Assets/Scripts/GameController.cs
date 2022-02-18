@@ -12,7 +12,10 @@ public class GameController : MonoBehaviour
 
     private CameraController camController;
     private Transform giraffe;
+    // True until the first giraffe is generated
     private bool firstGenerate = true;
+    // True if already swapped to the secret name list
+    private bool swappedNames = false;
 
 
     public void SetGiraffe(Transform newGiraffe)
@@ -78,11 +81,12 @@ public class GameController : MonoBehaviour
             // Giraffe selected. Load test scene with giraffe
             SceneManager.LoadScene("Playground");
         }
-        else if (Input.GetKey(KeyCode.F3) && Input.GetKey(KeyCode.F5))
+        else if (Input.GetKey(KeyCode.F3) && Input.GetKey(KeyCode.F5) && !swappedNames)
         {
             // Secret input, start particle effect and swap name list
             particles.SetActive(true);
             RandomNamer.SwapNameList("Names2.txt");
+            swappedNames = true;
         }
     }
 

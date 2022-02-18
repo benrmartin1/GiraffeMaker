@@ -7,6 +7,7 @@ public class TesterSceneController : MonoBehaviour {
     public Transform locationSpawn;
     public Transform defaultGiraffe;
 
+
 	// Use this for initialization
 	void Awake ()
     {
@@ -30,7 +31,7 @@ public class TesterSceneController : MonoBehaviour {
         giraffeObject.rotation = Quaternion.identity;
 
         giraffeObject.gameObject.AddComponent<GiraffeController>();
-
+            
 
         // Add a character controller and animator if the giraffe doesn't have one already.
         // The default giraffe has them, so this prevents them being added twice

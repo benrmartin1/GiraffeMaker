@@ -1,35 +1,47 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 // Responsible for allowing player control of giraffe, including jumps and movement
 public class GiraffeController : MonoBehaviour
 {
+    public Text scoreText;
+    public Text infoText;
 
     Animator animator;
-    Rigidbody rb;
     CharacterController charController;
+
+    int score = 0;
+    const int unlockJumpScore = 10;
+
+    // Control related vars
+    float jumpTime = 0;
+    bool goingUp = false;
+    bool jumpEnabled = false;
+
+    const float speed = 70.0F; //20
+    const float jumpSpeed = 60.0F;
+    const float maxJumpTime = 0.5f;
+    const float minJumpTime = 0.1f;
+
+    const float rotateSpeed = 3.0f;
+    const float gravity = 1200.0f;
 
     // Use this for initialization
     void Start()
     {
         animator = GetComponent<Animator>();
-        rb = GetComponent<Rigidbody>();
         charController = GetComponent<CharacterController>();
     }
 
-    float jumpTime = 0;
-    bool goingUp = false;
+    void Awake()
+    {
+        scoreText = GameObject.Find("FoodText").GetComponent<Text>();
+        infoText = GameObject.Find("InfoText").GetComponent<Text>();
+    }
 
     void Update()
     {
-        float speed = 20.0F;
-        float jumpSpeed = 60.0F;
-        float maxJumpTime = 0.5f;
-        float minJumpTime = 0.1f;
-
-        float rotateSpeed = 3.0f;
-        float gravity = 1200.0f;
-
         transform.Rotate(0, Input.GetAxis("Horizontal") * rotateSpeed, 0);
 
 
@@ -40,7 +52,7 @@ public class GiraffeController : MonoBehaviour
         // Super simple stupid algo to jump
         // Allows short jumps by tapping jump or long jumps by holding jump, up until maxJumpTime
         // This block calculates whether we are "goingUp" based on how long jump input has been held
-        if (Input.GetButton("Jump"))
+        if (Input.GetButton("Jump") && jumpEnabled  )
         {
             if (charController.isGrounded && Input.GetButtonDown("Jump"))
             {
@@ -82,13 +94,18 @@ public class GiraffeController : MonoBehaviour
         charController.Move(moveDirection * Time.deltaTime);
 
         // Animate the player while it is moving in any direction
-        if (charController.velocity.magnitude > 0)
+        animator.SetBool("Walking", charController.velocity.magnitude > 0);
+    }
+
+    public void IncrementScore()
+    {
+        score++;
+        scoreText.text = "Foods: " + score;
+
+        if (score >= unlockJumpScore)
         {
-            animator.SetBool("Walking", true);
-        }
-        else
-        {
-            animator.SetBool("Walking", false);
+            infoText.text = "";
+            jumpEnabled = true;
         }
     }
 }

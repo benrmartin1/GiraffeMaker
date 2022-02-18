@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityEngine.UI;
 
+// Generates random giraffes with various random attributes
 public class GiraffeMaker : MonoBehaviour
 {
 

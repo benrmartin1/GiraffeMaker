@@ -21,6 +21,8 @@ public static class RandomNamer
 	// Loads a new list of names.
 	public static void SwapNameList(string nameList)
 	{
+        Debug.Log("test2");
+
 		namesIndex = 0;
 
 		// Load initial name list from text file
@@ -47,6 +49,7 @@ public static class RandomNamer
 	// Returns the next element from the shuffled list
     public static string RandomName()
     {
+        Debug.Log("test1");
 		if (!initialized)
 		{
 			Init();
