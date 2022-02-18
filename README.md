@@ -10,11 +10,11 @@ I wrote the code and created the terrain. I also created the "models" and "anima
 
 
 Generating Prudence:
-![ellan](https://github.com/benrmartin1/GiraffeMaker/blob/main/prudence.png?raw=true)
+![Prudence](https://github.com/benrmartin1/GiraffeMaker/blob/main/prudence.png?raw=true)
 Looking for food with Prudence:
-![ellanplay](https://github.com/benrmartin1/GiraffeMaker/blob/main/prudence_gameplay.png?raw=true)
+![Prudence](https://github.com/benrmartin1/GiraffeMaker/blob/main/prudence_gameplay.png?raw=true)
 
 Generating Alissa:
-![earthporn](https://github.com/benrmartin1/GiraffeMaker/blob/main/alissa.png?raw=true)
+![Alissa](https://github.com/benrmartin1/GiraffeMaker/blob/main/alissa.png?raw=true)
 Exploring the desert with Alissa:
-![earthporn](https://github.com/benrmartin1/GiraffeMaker/blob/main/alissa_play.png?raw=true)
+![Alissa](https://github.com/benrmartin1/GiraffeMaker/blob/main/alissa_gameplay.png?raw=true)
